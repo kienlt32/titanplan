@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TitanPlan – Phần mềm quản lý F&B toàn diện</title>
@@ -96,24 +99,46 @@ form.addEventListener('submit', async (e) => {
     shopname: document.getElementById('shopname').value
   };
 
-  // URL Web App của bạn từ Apps Script
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbwIUrQdel-L2xAPYYM0xU4InAvvFxvK2GJGx1n9IZR1M-XcUnM8UINd9164FdxnXX-t/exec';
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzxyz12345/exec'; // 👉 thay bằng link thật của bạn
 
   try {
-    const res = await fetch(scriptURL, {
+    await fetch(scriptURL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
+
     form.reset();
-    document.getElementById('successMsg').classList.remove('hidden');
+
+    // 🎉 Hiển thị thông báo đẹp mắt
+    Swal.fire({
+      icon: 'success',
+      title: '🎉 Đăng ký thành công!',
+      text: 'Cảm ơn bạn đã quan tâm TitanPlan. Chúng tôi sẽ liên hệ sớm!',
+      confirmButtonColor: '#8FD9D1',
+      confirmButtonText: 'OK',
+      timer: 3500,
+      timerProgressBar: true,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
   } catch (err) {
-    alert('Có lỗi xảy ra khi gửi đăng ký. Vui lòng thử lại!');
+    Swal.fire({
+      icon: 'error',
+      title: '❌ Có lỗi xảy ra!',
+      text: 'Vui lòng thử lại sau ít phút.',
+      confirmButtonColor: '#8FD9D1'
+    });
     console.error(err);
   }
 });
 </script>
+
 
     <div class="mt-6">
       <p class="text-gray-600">Hoặc liên hệ với chúng tôi:</p>
@@ -132,7 +157,8 @@ form.addEventListener('submit', async (e) => {
     <a href="#" class="text-gray-600 hover:text-gray-800">Zalo</a> • 
     <a href="#" class="text-gray-600 hover:text-gray-800">Chính sách bảo mật</a>
   </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
+
 
